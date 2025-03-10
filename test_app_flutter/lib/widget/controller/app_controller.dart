@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:test_app_flutter/emitter/emitter.dart';
+import 'package:test_app_flutter/widget/todo_editor/add_todo_item_page.dart';
 
 class TodoItem {
   final String title;
@@ -33,5 +35,15 @@ class AppController {
 
   Future<void> executeRpcCall() async {
     await Future.delayed(Duration(seconds: 2));
+  }
+
+  Future<void> addTodoItem(BuildContext context) async {
+    final newItem = await Navigator.push<TodoItem>(
+      context,
+      MaterialPageRoute(builder: (context) => const AddTodoItemPage()),
+    );
+    if (newItem != null) {
+      todoItemsEmitter.value = [...todoItemsEmitter.value, newItem];
+    }
   }
 }
