@@ -27,12 +27,7 @@ class _TodoEditorPageState extends State<TodoEditorPage> {
           ),
           ListSection(
             listEmitter: _appController.todoItemsEmitter,
-            itemGroups: [
-              ListItemGroup(
-                titleText: 'Items',
-                builder: _itemBuilder,
-              ),
-            ],
+            itemGroups: _buildItemGroups(),
           )
         ],
       );
@@ -48,6 +43,24 @@ class _TodoEditorPageState extends State<TodoEditorPage> {
         iconData: Icons.numbers,
         titleText: 'Count: ${items.length}',
       ).build(),
+    ];
+  }
+
+  List<ListItemGroup<TodoItem>> _buildItemGroups() {
+    return [
+      ListItemGroup<TodoItem>(
+        titleText: 'In Progress',
+        showCount: false,
+        filter: (item) => !item.isDone,
+        builder: _itemBuilder,
+      ),
+
+      ListItemGroup<TodoItem>(
+        titleText: 'Completed',
+        showCount: true,
+        filter: (item) => item.isDone,
+        builder: _itemBuilder,
+      ),
     ];
   }
 
