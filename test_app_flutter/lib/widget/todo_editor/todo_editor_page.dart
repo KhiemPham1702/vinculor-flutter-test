@@ -8,7 +8,7 @@ import 'package:test_app_flutter/widget/shared_library/app_page/app_page_section
 import 'package:test_app_flutter/widget/shared_library/app_page/app_page_section/list_section.dart';
 import 'package:test_app_flutter/widget/controller/app_controller.dart';
 import 'package:test_app_flutter/widget/main/app_scaffold.dart';
-import 'package:test_app_flutter/widget/todo_editor/add_todo_item_page.dart';
+import 'package:test_app_flutter/widget/todo_editor/todo_list_item.dart';
 
 class TodoEditorPage extends StatefulWidget {
   const TodoEditorPage({super.key});
@@ -61,21 +61,14 @@ class _TodoEditorPageState extends State<TodoEditorPage> {
         titleText: 'In Progress',
         showCount: false,
         filter: (item) => !item.isDone,
-        builder: _itemBuilder,
+        builder: (item) => TodoListItem(item: item, appController: _appController),
       ),
       ListItemGroup(
         titleText: 'Completed',
         showCount: true,
         filter: (item) => item.isDone,
-        builder: _itemBuilder,
+        builder: (item) => TodoListItem(item: item, appController: _appController),
       ),
     ];
-  }
-
-  Widget _itemBuilder(TodoItem item) {
-    return ListTile(
-      title: Text(item.title),
-      subtitle: Text(item.description ?? ''),
-    );
   }
 }
